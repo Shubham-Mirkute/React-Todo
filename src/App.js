@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
+import Header from './components/Header';
+import TodoList from './components/TodoList';
+import Time from './components/Time';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [inputVal,setInput]= useState("");
+  const [todo,setTodo] = useState([]);
+
+  const DeletItem=(id)=>{
+    setTodo((oldval)=>{
+      return oldval.filter((arr,index)=>{
+        return index !==id;
+      });
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className="container">
+      <div className='app-wrapper'>
+        <div>
+          <Header 
+            inputVal={inputVal}
+            setInput={setInput}
+            todo={todo}
+            setTodo={setTodo}
+          />
+        </div>
+        <ol>
+          {todo.map((val,index)=>{
+            return <TodoList 
+            text={val}
+            key={index}
+            id={index}
+            onSelect={DeletItem}/>
+          })}
+        </ol>
+      </div>
+    <div className='Time'><Time/></div>
     </div>
+    </>
   );
-}
+};
 
 export default App;
