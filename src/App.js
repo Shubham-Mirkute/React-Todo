@@ -6,6 +6,7 @@ import './App.css';
 
 const App = () => {
   const [inputVal,setInput]= useState("");
+  const [message,setMessage]= useState("");
   const [todo,setTodo] = useState([]);
 
   const DeletItem=(id)=>{
@@ -25,8 +26,12 @@ const App = () => {
             setInput={setInput}
             todo={todo}
             setTodo={setTodo}
+            message={message}
+            setMessage={setMessage}
           />
         </div>
+        <br/>
+        <h3 className='task-message'>{message}</h3>       <br/>
         <ol>
           {todo.map((val,index)=>{
             return <TodoList 

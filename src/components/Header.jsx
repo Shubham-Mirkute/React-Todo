@@ -7,11 +7,23 @@ const Header = (props) => {
     props.setInput(event.target.value);
   }; 
 
-  const OnClickSubmit = ()=>{
-    props.setTodo((oldval)=>{
-        return [...oldval,props.inputVal ];
-    });
-    props.setInput("");
+  const OnClickSubmit = (event)=>{
+    var showMessage = document.getElementsByClassName("task-message")[0]
+    props.setMessage()
+    event.preventDefault();
+    if(props.inputVal.trim() !==''){
+      showMessage.style.display = "none";
+      console.log(props.inputVal)
+      props.setTodo((oldval)=>{
+          return [...oldval,props.inputVal ];
+      });
+      props.setInput("");
+    }
+    else{
+      showMessage.style.display = "block";
+   
+      props.setMessage("Input field is empty")
+    }
   };
   return (
     <>
@@ -27,7 +39,7 @@ const Header = (props) => {
             onChange={OnInputChange}
             />
     <button className="button-add" type='submit' onClick={OnClickSubmit}>Add</button>
-      
+      <br></br>
     </>
   );
 };
